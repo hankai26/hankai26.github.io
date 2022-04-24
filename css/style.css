@@ -1,0 +1,9 @@
+body {
+    /* change the font color for search panel */
+    color: #1d1c59ef;
+  }
+  .jumbotron {
+    background-image: url("../images/bacteria.jpeg");
+    background-size: 100% 150%;
+    text-align: center;
+  }
