@@ -152,7 +152,7 @@ function buildCharts(sample) {
       title: "OTU ID"
       },
       height: 400,
-      width: 800
+      width: 1158
     };
 
     // 3. Use Plotly to plot the data with the layout.
@@ -195,7 +195,7 @@ function buildCharts(sample) {
     
     // 5. Create the layout for the gauge chart.
     var gaugeLayout = { 
-      width: 600, 
+      width: 471, 
       height: 450, 
       margin: { t: 0, b: 0 } ,
       font: { color: "black", family: "Arial" }
