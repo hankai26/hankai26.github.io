@@ -78,22 +78,23 @@ function buildCharts(sample) {
     console.log(selectedMeta);
 
     // 6. Create variables that hold the otu_ids, otu_labels, and sample_values.
-    //??var otu_ids = Object.values(selected.otu_ids);
-    //?? var otu_labels = "OTU " + Object.values(selected.otu_ids);
-    //?? var sample_values = Object.values(selected.sample_values);
+    // ** No need to sort, since the original data is in order
+    // var sortedSamples = allSam_values.sort((a, b)=>
+    //   b.sample_values - a.sample_values);
+
     var allOtu_ids = selectedSam.otu_ids;
     var allSam_values = selectedSam.sample_values;
     var allOtu_labels = selectedSam.otu_labels;
     //console.log(allOtu_ids, allSam_values, allOtu_labels);
-    console.log(allSam_values);
+    console.log(allOtu_ids, allSam_values);
     // 7. Create the yticks for the bar chart.
     // Hint: Get the the top 10 otu_ids and map them in descending order  
     //  so the otu_ids with the most bacteria are last. 
-    // var sortedSamples = allSam_values.sort((a, b)=>
-    //   b.sample_values - a.sample_values);
+    
     var topTenOtu_ids = allOtu_ids.slice(0,10);
     var topTenSam_values = allSam_values.slice(0,10);
     var topTenOtu_labels = allOtu_labels.slice(0,10);
+    //console.log("**********"+topTenOtu_labels+"***********");
 
     // var topTenSam_values = topTenOtu.map(x => x.sample_values);
     // var topTenOtu_ids = topTenOtu.map(x => x.otu_ids);
@@ -109,11 +110,13 @@ function buildCharts(sample) {
       x: topTenSam_values,
       type: "bar",
       orientation: "h",
-      hoverinfo: topTenOtu_labels
+      text: topTenOtu_labels
+      ///hoverinfo: topTenOtu_labels
     }];
     // 9. Create the layout for the bar chart. 
     var barLayout = {
-      title: "Top 10 Bacteria Cultures Found"
+      title: "Top 10 Bacteria Cultures Found",
+      yaxis: {autorange:"reversed"}
     };
     // 10. Use Plotly to plot the data with the layout. 
     Plotly.newPlot("bar", barData, barLayout);
@@ -124,6 +127,7 @@ function buildCharts(sample) {
     var bubbleData = [{
       x: allOtu_ids,
       y: allSam_values,
+      text: allOtu_labels,
       mode: "markers",
       marker: {
         size: allSam_values,
@@ -142,7 +146,6 @@ function buildCharts(sample) {
           ['1.0', 'rgb(49,54,149)']
         ],
       },
-      hoverinfo: allOtu_labels
     }];
 
     // 2. Create the layout for the bubble chart.
@@ -178,7 +181,7 @@ function buildCharts(sample) {
     var gaugeData = [{
       domain: { x: [0, 1], y: [0, 1] },
       value: wfreq,
-      title: { text: "Belly Button Washing Frequency/n Scrubs per Week" },
+      title: { text: "Belly Button Washing Frequency" + "<br>" + "<span style='font-size: 12px;'>Scrubs per Week</span>"},
       type: "indicator",
       mode: "gauge+number",
       gauge: {
@@ -187,7 +190,7 @@ function buildCharts(sample) {
           { range: [0, 2], color: "red" },
           { range: [2, 4], color: "orange" },
           { range: [4, 6], color: "yellow" },
-          { range: [6, 8], color: "light green" },
+          { range: [6, 8], color: "blue" },
           { range: [8, 10], color: "green" }
         ]
       },
